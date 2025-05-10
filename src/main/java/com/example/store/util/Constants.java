@@ -9,6 +9,10 @@ public final class Constants {
      */
     public final static String ERROR = "error";
 
+    public final static String AUTHENTICATE = "/authenticate";
+    public final static String STORE_EXT = "/store/**";
+    public final static String STORE = "/store";
+
     /**
      * private constructor specific to utility classes.
      */

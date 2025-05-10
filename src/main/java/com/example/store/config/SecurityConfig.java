@@ -16,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.example.store.util.Constants.*;
+
 /**
  * Configuration class where we set that the operations CREATE, UPDATE and DELETE are available
  * only to authenticated users.
@@ -48,11 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
-                .antMatchers(HttpMethod.GET, "/store/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/store").authenticated()
-                .antMatchers(HttpMethod.PUT, "/store/**").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/store/**").authenticated()
+                .antMatchers(AUTHENTICATE).permitAll()
+                .antMatchers(HttpMethod.GET, STORE_EXT).permitAll()
+                .antMatchers(HttpMethod.POST, STORE).authenticated()
+                .antMatchers(HttpMethod.PUT, STORE_EXT).authenticated()
+                .antMatchers(HttpMethod.DELETE, STORE_EXT).authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
