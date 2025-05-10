@@ -6,7 +6,10 @@ import java.util.Objects;
 /**
  * User entity which is being persisted.
  * </br>
- * Note: we consider username, pseudonym unique.
+ * We enforce username and pseudonym not to be null.
+ * This will tell JPA/Hibernate to generate a UNIQUE constraint in the database schema for the username column
+ * during schema creation (if you use spring.jpa.hibernate.ddl-auto=create|update).
+ * Which is actually the default behavior for Spring Boot + H2 database.
  */
 @Entity
 @SuppressWarnings("unused")
@@ -15,11 +18,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(unique = true, nullable = false)
     private String username;
-
     private String password;
-
+    @Column(unique = true, nullable = false)
     private String pseudonym;
 
     public Long getId() {
