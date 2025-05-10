@@ -38,10 +38,9 @@ public class AuthController {
      * API responsible with the authentication of a User.
      * @param authRequest AuthRequest class containing username and password
      * @return a LOGIN_TOKEN string which could be used as a header for CRUD ops on store.
-     * @throws Exception in case of Internal error
      */
     @PostMapping("/authenticate")
-    public String authenticate(@RequestBody AuthRequest authRequest) throws Exception {
+    public String authenticate(@RequestBody AuthRequest authRequest) {
         return authService.authenticate(authRequest);
     }
 
