@@ -55,7 +55,9 @@ public class UserDTO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserDTO user)) return false;
-        return Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPseudonym(), user.getPseudonym());
+        return Objects.equals(getId(), user.getId())
+                && Objects.equals(getUsername(), user.getUsername())
+                && Objects.equals(getPseudonym(), user.getPseudonym());
     }
 
     @Override
