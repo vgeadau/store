@@ -1,6 +1,7 @@
 package com.example.store.controller;
 
 import com.example.store.dto.ProductDTO;
+import com.example.store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -8,10 +9,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * StoreController responsible with product operations. I see this application as a store platform. Meaning
- * Each product belongs to an authenticated user (shop).
+ * StoreController responsible with product operations. I see this application as a store platform.
+ * As result, I set up some rules:
+ * All should be able to see all the products
+ * Only authenticated users should be able to modify
  * While all products should be available to customers.
  * Only authenticated user can delete their own products.
+ * Conversion logic handled in Service.
+ * Controllers should be light:
+ * - they should not catch exceptions - we have Exception Handler for that
+ * - they should not perform conversions from DTO to Entity and the other way around - we have services for that.
+ * - because if we add an OPENAPI (Swagger) each controller method can get quite big.
  * ------------------------------------------------------
  * Note1: This can be further improved by having API documentation automatically generated
  * using the OPENAPI framework.
