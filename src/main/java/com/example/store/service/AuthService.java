@@ -24,17 +24,23 @@ public class AuthService {
 
     private final ValidationService validationService;
 
+    private final ClassService classService;
+
     @Autowired
     public AuthService(MyUserDetailsService userDetailsService, JwtUtil jwtUtil,
-                       AuthenticationManager authenticationManager, ValidationService validationService) {
+                       AuthenticationManager authenticationManager, ValidationService validationService,
+                       ClassService classService) {
         this.userDetailsService = userDetailsService;
         this.jwtUtil = jwtUtil;
         this.authenticationManager = authenticationManager;
         this.validationService = validationService;
+        this.classService = classService;
     }
 
     /**
      * Authenticate method.
+     * By having ClassService which creates an instance the code respects D from SOLID.
+     * See more clarifications in the comments of ClassService.
      * @param authRequest the Authentication Request
      * @return JWT string token
      */
@@ -43,8 +49,11 @@ public class AuthService {
         validationService.performAuthenticateValidations(authRequest.username());
 
         try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.username(), authRequest.password()));
+            final Class<?>[] types = {String.class, String.class};
+            final Object[] values = {authRequest.username(), authRequest.password()};
+            final UsernamePasswordAuthenticationToken authenticationToken =
+                    classService.create(UsernamePasswordAuthenticationToken.class, types, values);
+            authenticationManager.authenticate(authenticationToken);
         } catch (AuthenticationException e) {
             throw new StoreException(ErrorMessages.AUTHENTICATION_ERROR, e);
         }

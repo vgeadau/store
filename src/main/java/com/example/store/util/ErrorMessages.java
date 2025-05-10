@@ -13,6 +13,11 @@ public final class ErrorMessages {
     }
 
     /**
+     * {@link com.example.store.service.ClassService} error messages.
+     */
+    public final static String CANNOT_CREATE_INSTANCE = "Cannot create class instance. Exception happened: ";
+
+    /**
      * {@link com.example.store.config.GlobalExceptionHandler} error messages.
      */
     public final static String STORE_EXCEPTION_LOG_MESSAGE = "Store exception occurred: ";
