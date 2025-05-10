@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class ValidationService {
 
-    public static final List<String> BANNED_LIST = List.of("Bad Customer", "Massador Diego");
+    public static final List<String> BANNED_LIST = List.of("Massador Diego");
 
     /**
      * One required validations is that we do not allow _Darth Vader_ to authenticate.
