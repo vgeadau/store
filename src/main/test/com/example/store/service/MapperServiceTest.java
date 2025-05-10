@@ -16,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Unit tests for {@link MapperService}.
  * A much more elegant solution for a simplified code could be Spock framework that uses GROOVY.
  * But we will use Mockito, and JUnit Jupiter.
+ * Note: var can be used instead of the actual object saving more code, however as I prefer clarity,
+ * I avoided using var.
+ * Note: there are still magic values here, but due to time constraints I skipped them as this is a POC project.
  */
 @ExtendWith(MockitoExtension.class)
 public class MapperServiceTest {
@@ -69,10 +72,10 @@ public class MapperServiceTest {
     @Test
     public void getUserDto_shouldSucceed() {
         // given
-        User user = buildUser();
+        final User user = buildUser();
 
         // when
-        UserDTO result = target.getUserDto(user);
+        final UserDTO result = target.getUserDto(user);
 
         // then
         assertEquals(user.getUsername(), result.getUsername());
@@ -83,10 +86,10 @@ public class MapperServiceTest {
     @Test
     public void getProduct_shouldSucceed() {
         // given
-        ProductDTO productDto = buildProductDto();
+        final ProductDTO productDto = buildProductDto();
 
         // when
-        Product result = target.getProduct(productDto);
+        final Product result = target.getProduct(productDto);
 
         // then
         assertEquals(productDto.getAuthor().getUsername(), result.getAuthor().getUsername());
@@ -103,10 +106,10 @@ public class MapperServiceTest {
     @Test
     public void getUser_should_succeed() {
         // given
-        UserDTO userDto = buildUserDto();
+        final UserDTO userDto = buildUserDto();
 
         // when
-        User result = target.getUser(userDto);
+        final User result = target.getUser(userDto);
 
         // then
         assertEquals(userDto.getUsername(), result.getUsername());
