@@ -38,7 +38,7 @@ class AuthControllerTest {
     private AuthController target;
 
     @Test
-    void authenticate_shouldSucceed() throws Exception {
+    void authenticate_shouldSucceed() {
         // given
         final AuthRequest authRequest = buildAuthRequest();
 

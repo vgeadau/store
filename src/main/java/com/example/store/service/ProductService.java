@@ -77,7 +77,7 @@ public class ProductService {
      * @return Product
      */
     private Product getPersistedProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new RuntimeException(ErrorMessages.PRODUCT_NOT_FOUND));
+        return productRepository.findById(id).orElseThrow(() -> new StoreException(ErrorMessages.PRODUCT_NOT_FOUND));
     }
 
     /**

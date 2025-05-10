@@ -46,7 +46,10 @@ public class ClassService {
      * For most cases types can be obtained from values however there is a situation where that doesn't work.
      * For example if we have two constructors CustomClass(byte, Byte) CustomClass(Byte, byte) we are unable to
      * find which of the constructor is being referred first or second. By providing the types we can call one or
-     * the other without problem by just setting constructorTypes = {byte.class, Byte.class}.
+     * the other without problem by just setting
+     * <code>
+     *      constructorTypes = {byte.class, Byte.class};
+     * </code>
      * </br>
      * @param clazz Class
      * @param constructorTypes the constructor's parameter types

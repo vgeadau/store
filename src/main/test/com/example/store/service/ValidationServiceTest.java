@@ -30,7 +30,7 @@ public class ValidationServiceTest {
     @Test
     public void performAuthenticateValidations_shouldSucceed() {
         // given
-        final String username = "some user different from Massador Diego";
+        final String username = "some user different from Diego";
 
         // when
         target.performAuthenticateValidations(username);

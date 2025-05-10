@@ -8,14 +8,16 @@ import java.util.List;
 
 /**
  * Custom validations service.
+ * At this point list is held in memory, however, this implementation can be extended by adding
+ * banning functionality. This is just a POC.
  */
 @Service
 public class ValidationService {
 
-    public static final List<String> BANNED_LIST = List.of("Massador Diego");
+    public static final List<String> BANNED_LIST = List.of("Diego");
 
     /**
-     * One required validations is that we do not allow _Darth Vader_ to authenticate.
+     * We don't allow user Diego to authenticate.
      * @param username String
      */
     public void performAuthenticateValidations(String username) {
