@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </br>
  * First we need to /register a user in order to be able to call /authenticate API.
  * Once a user is registered calling an authenticate will offer a LOGIN TOKEN
- * That LOGIN_TOKEN must be set as a header on CRUD BOOKS API:
+ * That LOGIN_TOKEN must be set as a header on CRUD STORE API:
  * Key: Authorization
  * Value: Bearer LOGIN_TOKEN
  * </br>
@@ -37,7 +37,7 @@ public class AuthController {
     /**
      * API responsible with the authentication of a User.
      * @param authRequest AuthRequest class containing username and password
-     * @return a LOGIN_TOKEN string which could be used as a header for CRUD ops on books.
+     * @return a LOGIN_TOKEN string which could be used as a header for CRUD ops on store.
      * @throws Exception in case of Internal error
      */
     @PostMapping("/authenticate")
