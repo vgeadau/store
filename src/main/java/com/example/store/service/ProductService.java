@@ -39,6 +39,8 @@ public class ProductService {
 
     /**
      * Gets products.
+     * - in order to respect S from SOLID, we prefer to have a single point of exit.
+     * - this is also helping in debugging as we need of one breakpoint instead of many.
      * @param title String
      * @return List
      */
@@ -62,6 +64,18 @@ public class ProductService {
         return mapperService.getProductDto(product);
     }
 
+    /**
+     * Gets a product by provided id.
+     * Lambda and stream collections have poor performance as for each dot in the chain
+     * list.stream().filter().map() the memory occupies more and more resources.
+     * And when the list is big, this could cause serious problems.
+     * Classical FOR is preferred over stream.
+     * Another weak point of stream is debugging, they are much harder to debug.
+     * And although it brings clarity for those that enjoys functional programming, that clarity cost week performance,
+     * several times increase in memory usage and hard to debug.
+     * @param id the id of the product
+     * @return Product
+     */
     private Product getPersistedProductById(Long id) {
         return productRepository.findById(id).orElseThrow(() -> new RuntimeException(ErrorMessages.PRODUCT_NOT_FOUND));
     }
@@ -80,19 +94,21 @@ public class ProductService {
 
     /**
      * Updates a Product record.
+     * A builder pattern can be useful (via lombok for example)
+     * in this scenario where we construct object, but this is a POC.
      * @param id Long
      * @param productDto ProductDTO
      * @return ProductDTO
      */
     public ProductDTO updateProduct(Long id, ProductDTO productDto) {
-        Product existingProduct = getPersistedProductById(id);
+        final Product existingProduct = getPersistedProductById(id);
         existingProduct.setTitle(productDto.getTitle());
         existingProduct.setDescription(productDto.getDescription());
         existingProduct.setAuthor(getPersistedAuthor(productDto.getAuthor()));
         existingProduct.setCoverImage(productDto.getCoverImage());
         existingProduct.setPrice(productDto.getPrice());
         existingProduct.setQuantity(productDto.getQuantity());
-        Product updatedProduct = productRepository.save(existingProduct);
+        final Product updatedProduct = productRepository.save(existingProduct);
         return mapperService.getProductDto(updatedProduct);
     }
 
@@ -101,8 +117,8 @@ public class ProductService {
      * @param id Long
      */
     public boolean deleteProduct(Long id) {
-        Product existingProduct = getPersistedProductById(id);
-        String username = myUserDetailsService.getCurrentUsername();
+        final Product existingProduct = getPersistedProductById(id);
+        final String username = myUserDetailsService.getCurrentUsername();
         if (username.equals(existingProduct.getAuthor().getUsername())) {
             productRepository.deleteById(id);
             // as we reached this point we can consider delete was successfully done.
