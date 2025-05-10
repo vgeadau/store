@@ -12,7 +12,6 @@ import java.util.Objects;
  * Which is actually the default behavior for Spring Boot + H2 database.
  */
 @Entity
-@SuppressWarnings("unused")
 public class User {
 
     @Id
