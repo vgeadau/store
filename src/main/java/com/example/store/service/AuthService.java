@@ -32,6 +32,12 @@ public class AuthService {
         this.validationService = validationService;
     }
 
+    /**
+     * Bonus implementation. Some users could be banned, so we perform a validation.
+     * @param authRequest the Authentication Request
+     * @return JWT string token
+     * @throws Exception on error
+     */
     public String authenticate(AuthRequest authRequest) throws Exception {
         validationService.performAuthenticateValidations(authRequest.username());
 
