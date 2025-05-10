@@ -1,6 +1,7 @@
 package com.example.store.service;
 
 import com.example.store.dto.AuthRequest;
+import com.example.store.exception.StoreException;
 import com.example.store.security.JwtUtil;
 import com.example.store.util.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,19 +34,19 @@ public class AuthService {
     }
 
     /**
-     * Bonus implementation. Some users could be banned, so we perform a validation.
+     * Authenticate method.
      * @param authRequest the Authentication Request
      * @return JWT string token
-     * @throws Exception on error
      */
-    public String authenticate(AuthRequest authRequest) throws Exception {
+    public String authenticate(AuthRequest authRequest) {
+        // Bonus implementation. Some users could be banned, so we perform a validation.
         validationService.performAuthenticateValidations(authRequest.username());
 
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.username(), authRequest.password()));
         } catch (AuthenticationException e) {
-            throw new Exception(ErrorMessages.AUTHENTICATION_ERROR, e);
+            throw new StoreException(ErrorMessages.AUTHENTICATION_ERROR, e);
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.username());
