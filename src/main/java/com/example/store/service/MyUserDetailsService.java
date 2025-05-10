@@ -1,5 +1,6 @@
 package com.example.store.service;
 
+import com.example.store.exception.StoreException;
 import com.example.store.model.MyUserDetails;
 import com.example.store.model.User;
 import com.example.store.repository.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -45,10 +47,22 @@ public class MyUserDetailsService implements UserDetailsService {
 
     /**
      * Creates a user.
+     * If incorrect user provided or, a username / pseudonym that already exists,
+     * we will throw a generic store exception.
      * @param user User
      * @return User
      */
     public User save(User user) {
+        if (Objects.isNull(user.getPseudonym()) || Objects.isNull(user.getUsername())
+                || Objects.isNull(user.getPassword())) {
+            throw new StoreException(ErrorMessages.INVALID_USER);
+        }
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new StoreException(ErrorMessages.INVALID_USER);
+        }
+        if (userRepository.findByPseudonym(user.getPseudonym()).isPresent()) {
+            throw new StoreException(ErrorMessages.INVALID_USER);
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
