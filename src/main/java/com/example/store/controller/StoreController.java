@@ -23,13 +23,10 @@ import java.util.List;
  * ------------------------------------------------------
  * Note1: This can be further improved by having API documentation automatically generated
  * using the OPENAPI framework.
- * Note2: Second improvement is to create separate dto(s) and to convert them into Entities
- * and back using some API like ObjectMapper.
- * But as a POC (Proof of Concept) we use entities.
- * Note3: The custom get products by any subset of fields from database can be implemented using GraphQL
+ * Note2: The custom get products by any subset of fields from database can be implemented using GraphQL
  * that gives us the flexibility of writing 1 endpoint while being able to filter the products in any possible
  * combinations. see <a href="https://graphql.org">Graph QL</a>. For this POC we used filter by a subpart of a title as seen below.
- * Note4: This endpoint will return either receive and answer with JSON or XML on demand
+ * Note3: This endpoint will return either receive and answer with JSON or XML on demand
  * based on Content-Type & Accept headers
  * application/json for JSON
  * application/xml for XML

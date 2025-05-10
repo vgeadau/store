@@ -1,16 +1,20 @@
-# Getting Started
+# DEVELOPER GUIDE - Getting Started with a new GitHub project.
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### Step 1 - Generate Spring Boot Project spring initializr
+https://start.spring.io
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.4.5/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.4.5/maven-plugin/build-image.html)
+### Step 2 - Initialize Git Locally
+cd c:\Users\[login_user]\IdeaProjects\[project_folder]\
+git init
+echo "target/" > .gitignore  # Add other ignored paths too
+git add .
+git commit -m "Initial Spring Boot project"
 
-### Maven Parent overrides
+### Step 3 - Create a GitHub Repository 
+Go to GitHub ? New Repository
+Don’t initialize with README, .gitignore, or license (to avoid conflicts)
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
-
+### Step 4 - Link Local Repo to GitHub
+git remote add origin https://github.com/[github_user]/store.git
+git branch -M main
+git push -u origin main
