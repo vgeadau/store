@@ -1,6 +1,36 @@
-# REVIEWER GUIDE
+# MY SPRING BOOT PROJECT
+A RESTful API built with Spring Boot for managing products with basic authentication.
 
-### THE TASK
+## 🚀 Features
+- User authentication with JWT
+- CRUD operations for products
+- Exception handling and logging
+- H2 in-memory database (for dev)
+
+## 🛠 Tech Stack
+
+- Java 17
+- Spring Boot
+- Spring Security
+- Maven
+- H2
+- JUnit & Mockito
+
+## ⚙️ Setup
+
+### Prerequisites
+- Java 17+
+- Maven 3.x
+
+### Run Locally
+
+```bash
+git clone https://github.com/vgeadau/store.git
+cd store
+mvn spring-boot:run
+```
+
+### THE TASK (AS RECEIVED)
 - (1) Create a GitHub profile if you don't have one
 - (2) Use git in a verbose manner, push even if you wrote only one class
 - (3) Create a Java, maven based project, SpringBoot for the web part
@@ -13,7 +43,7 @@
 - (10) Add a small Readme to document the project
 - (11) Other information
 
-### CHOICES REGARDING TASK
+### CHOICES REGARDING TASK (SOME IMPLEMENTATION DETAILS)
 - (1) - Project location: https://github.com/vgeadau/store (branch main)
 - (2) - There is a lot of verbose not only in GIT but more so on written classes.
 - (3) - Store - It is a Java 17 (Corretto) Project that uses Maven.
