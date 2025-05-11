@@ -123,3 +123,25 @@ used for filtering. Still the GraphQL offers this out of the box without special
 - (7) Lombok / Builder pattern could have been used to obtain / create objects with more parameters.
 - (8) Product quantity not taken into consideration in the API(s). I could update GET API(s) to only
 bring those products that have quantity greater.
+
+### USER GUIDE
+- (1) first start the application. The application uses default port 8080.
+You can either configure a new port:
+```
+in application.properties:
+server.port=8081
+```
+Or you can stop the service / kill the process that is using your 8080
+```
+netstat -ano | findstr :8080
+tasklist /FI "PID eq 12345"
+taskkill /PID 12345 /F
+```
+
+- (2) then you load "REST API for STORE.postman_collection.json" into the Postman application
+- (3) then you need to "register" an user. Some things to consider here:
+- (3.1) You will get a validation error if you attempt to register 2 users with same username and pseudonym
+- (3.2) User "Diego" is banned - (we have an hardcoded In-Memory ban-list (for fun))
+- (4) then you will need to "authenticate" with the user and pass from the registered user 
+- (5) then have fun calling CRUD operations on products. With the mention here that GET API(s) are public 
+also available to unauthenticated users.
