@@ -51,7 +51,7 @@ class AuthServiceTest {
         // given
         final AuthRequest authRequest = new AuthRequest(USERNAME, PASSWORD);
 
-        final Class<?>[] types = {String.class, String.class};
+        final Class<?>[] types = {Object.class, Object.class};
         final Object[] values = {authRequest.username(), authRequest.password()};
         final UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 authRequest.username(), authRequest.password());

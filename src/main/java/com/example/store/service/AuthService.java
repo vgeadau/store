@@ -49,7 +49,7 @@ public class AuthService {
         validationService.performAuthenticateValidations(authRequest.username());
 
         try {
-            final Class<?>[] types = {String.class, String.class};
+            final Class<?>[] types = {Object.class, Object.class};
             final Object[] values = {authRequest.username(), authRequest.password()};
             final UsernamePasswordAuthenticationToken authenticationToken =
                     classService.create(UsernamePasswordAuthenticationToken.class, types, values);
