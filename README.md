@@ -49,7 +49,7 @@ mvn spring-boot:run
 - (3) - Store - It is a Java 17 (Corretto) Project that uses Maven.
 - (4) - No frontend layer provided for this APP.
 - (5) - Implemented 2 controllers
-- (5.1) - StoreController - responsible with CRUD operations on Product. We have here methods such as:
+- (5.1) - StoreController - responsible with CRUD operations on Product. I have here methods such as:
 - (5.1.1) getAllProducts - returns all products containing a title if provided, otherwise all products
 - (5.1.2) getProductById - finds a Product by an ID
 - (5.1.3) createProduct - creates a Product from the ProductDTO received body
@@ -59,19 +59,19 @@ Products are associated to user, so one user cannot delete other user's products
 - (6) - AuthController - responsible with basic authentication API(s). I am using in this POC (proof of concept),
 JWT to generate a token. 
 In SecurityConfig - I configured which API(s) requires basic authentication and which don't. 
-There is room for improvement here, as we are using only 2 roles and this application is viewed mostly as
-a Store platform - Product Management Module, we didn't needed multiple authenticated roles
+There is room for improvement here, as I am using only 2 roles and this application is viewed mostly as
+a Store platform - Product Management Module, I didn't required multiple authenticated roles
 So for this POC we have:
 - (6.1) "unauthenticated" people that have the right to read (GET operations from (5.1))
 - (6.2) "authenticated" people that are actually STORE ADMINS that applies CRUD operation on PRODUCTS
 
-However, in a more complex application we can also consider CUSTOMERS. 
-That are allowed to ORDER, BUY, SET PAYMENT METHODS, SET DELIVERY OPTIONS ETC. 
-This user role wasn't taken into consideration.
+However, in a more complex application we can consider CUSTOMERS as a separate spring boot application. 
+They should allowed to ORDER, BUY, SET PAYMENT METHODS, SET DELIVERY OPTIONS ETC. 
+At this moment other authenticated roles were not taken into consideration.
 - (7) - GlobalExceptionHandler - responsible with error handling and logging
 A project specific exception was also defined - StoreException - BAD_REQUEST 400
 Unexpected exceptions return with HttpStatus: INTERNAL_SERVER_ERROR 500
-Multiple other custom Exceptions could have been used, however as this is a POC we use StoreException everywhere.
+Multiple other custom Exceptions could have been used, however as this is a POC I only use StoreException.
 Logs were added in GlobalExceptionHandler to avoid duplication.
 - (8) - This project has a high coverage as can be noticed (45 tests). Some methods are fully covered.
 - (9) - New features isn't necessary better features for example "record" breaks naming standard.
@@ -85,8 +85,8 @@ Anonymous classes for example was also a new feature that proved to be a total b
 - (11.2) Controllers were implemented to be light:
 They should not contain code such try / catch, or conversions from entity to dto(s).
 - (11.3) UserDTO doesn't contain password. This DTO is used in Product. Password was purposely skipped,
-because we don't allow user to change his password while performing product operations.
-- (11.4) Several motives why I choose my StoreException to implement RuntimeException:
+because we don't allow user to change his password while performing product CRUD operations.
+- (11.4) Several motives why I choose my StoreException to implement RuntimeException and not (a checked exception):
  - Clean code / vs verbose
  - Better suited for business logic errors
  - Should bubble up to the controller layer
@@ -115,7 +115,11 @@ easier to debug (only one breakpoint instead of multiple breakpoints for each re
 - (3) Magic vales (numbers and text) were not externalized in all the unit tests (due time limitations), but
 the source code should not have such magic values.
 - (4) Use ObjectMapper instead of manual mapping, but I've chosen to avoid adding more dependencies.
-- (5) Instead of having multiple API(s) for getting a product, we could use something like GraphQL which allows
+- (5) Instead of having multiple API(s) for getting a product, I could use something like GraphQL which allows
 writing one API while allowing user to filter the products by any combination of fields.
+Although if I start to consider, we could have added multiple fields and if they are not null they could have been
+used for filtering. Still the GraphQL offers this out of the box without special implementation.
 - (6) BigDecimal should be used for Finance related calculus in java however I choose double for this POC
 - (7) Lombok / Builder pattern could have been used to obtain / create objects with more parameters.
+- (8) Product quantity not taken into consideration in the API(s). I could update GET API(s) to only
+bring those products that have quantity greater.
